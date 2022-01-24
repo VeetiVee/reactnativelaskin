@@ -1,10 +1,44 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React , { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 export default function App() {
+  const [number1, setNumber1] = useState('');
+  const [number2, setNumber2] = useState('');
+  const [total, setTotal] = useState('');
+  
+  const plus = () => {
+    setTotal(number1 + number2);
+    setNumber1('');
+    setNumber2('');
+  };
+
+  const minus = () => {
+    setTotal(number1 - number2);
+    setNumber1('');
+    setNumber2('');
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Text>Result: {total} </Text>
+      <TextInput 
+      style={{width:200, borderColor: 'gray', borderWidth:1}}
+      keyboardType={"number-pad"}
+      onChangeText={text => setNumber1(parseInt(text))}
+      value={number1}
+      />
+       <TextInput 
+      style={{width:200, borderColor: 'gray', borderWidth:1}}
+      keyboardType={"number-pad"}
+      onChangeText={text => setNumber2(parseInt(text))}
+      value={number2}
+      />
+      <View style ={{flexDirection: 'row'}}>
+      <Button onPress={plus} title= "+" />
+      <Button onPress={minus} title= "-" />
+      </View>
+    
       <StatusBar style="auto" />
     </View>
   );
